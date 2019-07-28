@@ -13,3 +13,8 @@ if User.count.zero?
   User.create(email: 'oscar.nunez1908@yahoo.com', nickname: 'TheFirstEternal',
               name: 'Oscar Nunez', password: 'test616', confirmed_at: Time.now)
 end
+
+if Admin.count.zero?
+  Admin.create(email: 'ojnc.190888@gmail.com', nickname: 'Owner',
+               name: 'Oscar Nunez', password: 'admin-616')
+end

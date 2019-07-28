@@ -39,6 +39,14 @@ gem 'rack-cors'
 # PostgreSQL gem that uses scopes for full text search
 gem 'pg_search'
 
+# Amazon S3 support to active storage files system
+gem 'aws-sdk-s3', require: false
+
+# Audited is an ORM that logs all changes made to the models, it can save who
+# did these changes, comments and associated models related. It will be used
+# to keep track of movie updates for sale/rent price and stock
+gem 'audited', '~> 4.9'
+
 # Pagination library to use with our list of movies
 gem 'will_paginate', '~> 3.1.0'
 

@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Movie < ApplicationRecord
+  # Keep a log of sale and rent price each time we update
+  audited only: %i[sale_price rent_price], on: [:update]
+
   # Attach an image with the help of ActiveStorage
   has_one_attached :cover
 

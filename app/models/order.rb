@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Order < ApplicationRecord
+  # Keep a log of all orders fields
+  audited
+
   # Relations
   belongs_to :user
   belongs_to :movie

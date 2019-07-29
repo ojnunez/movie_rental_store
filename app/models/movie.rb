@@ -13,6 +13,15 @@ class Movie < ApplicationRecord
             numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :price, numericality: { greater_than: 0 }
 
+  scope :are_available, lambda {
+                          where('movies.availability == true
+                                    && movies.stock > 0')
+                        }
+  # No Ransack for this project
+  include PgSearch
+  pg_search_scope :search, against: %i[name description],
+                           using: { tsearch: { prefix: true } }
+
   def cover_image_url
     # Validate if there is a cover image attached to a movie, return a
     # blank string if there's not

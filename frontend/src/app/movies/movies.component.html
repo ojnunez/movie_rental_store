@@ -1,0 +1,29 @@
+
+
+<div class="container">
+  <div class="text-center">
+    <h2>Movies List</h2>
+
+    <div *ngFor="let item of pageOfItems">
+
+      <div class="card">
+        <div class="card-body">
+          <div style="float: left;">
+            <img src="https://placeimg.com/200/250/any" >
+          </div>
+          <div style="float: left; margin-left: 20px; text-align: left;">
+            <h2>{{item.title}}</h2>
+            <p class="card-text">{{item.description}}</p>
+            <a href="#" class="btn btn-primary">See more</a>
+          </div>
+        </div>
+        <div class="card-footer text-muted">
+          Stock available: {{item.stock}}
+        </div>
+      </div>
+
+    </div>
+    <br>
+    <jw-pagination [items]="movies" (changePage)="onChangePage($event)"></jw-pagination>
+  </div>
+</div>

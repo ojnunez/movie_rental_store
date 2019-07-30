@@ -1,0 +1,910 @@
+{
+	"info": {
+		"_postman_id": "f52d1b97-e5b3-4ea4-af1b-c27908fcc3db",
+		"name": "Movie Rental Store",
+		"description": "Challenge app for Applaudo Studio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Admins Namespace",
+			"item": [
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "",
+											"description": "Required admin email",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "",
+											"description": "Required admin password",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "",
+											"description": "Required admin name",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{site_url}}/admins/api_v1/auth",
+									"host": [
+										"{{site_url}}"
+									],
+									"path": [
+										"admins",
+										"api_v1",
+										"auth"
+									]
+								},
+								"description": "Register a user, in the register we do not login automatically, so you have to go to the Login action later"
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0e8353cf-9d9e-4213-8c00-5d1e0dcb8c97",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "ed5afc8c-b295-4246-8bb9-5c10758546f7",
+										"exec": [
+											"postman.setEnvironmentVariable(\"admin-client\", postman.getResponseHeader(\"client\"));",
+											"postman.setEnvironmentVariable(\"admin-access-token\", postman.getResponseHeader(\"access-token\"));",
+											"postman.setEnvironmentVariable(\"admin-uid\", postman.getResponseHeader(\"uid\"));",
+											"postman.setEnvironmentVariable(\"admin-expiry\", postman.getResponseHeader(\"expiry\"));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "",
+											"description": "Insert admin email",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "",
+											"description": "Insert admin password",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{site_url}}/admins/api_v1/auth/sign_in",
+									"host": [
+										"{{site_url}}"
+									],
+									"path": [
+										"admins",
+										"api_v1",
+										"auth",
+										"sign_in"
+									]
+								},
+								"description": "In a successful login, the body response returns the user object, and the header returns the token fields required to make the other calls (access-token, client, uid and expiry)"
+							},
+							"response": []
+						}
+					],
+					"description": "Auth for admins",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c51583ba-7752-423e-aca6-654db7f0e0ea",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "82c601c6-7c06-4814-859e-8e00f65de7a3",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Movie",
+					"item": [
+						{
+							"name": "Index",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "access-token",
+										"value": "{{admin-access-token}}",
+										"description": "Authenticated admin, access token header",
+										"type": "text"
+									},
+									{
+										"key": "client",
+										"value": "{{admin-client}}",
+										"description": "Authenticated admin, client header",
+										"type": "text"
+									},
+									{
+										"key": "uid",
+										"value": "{{admin-uid}}",
+										"description": "Authenticated admin, uid header",
+										"type": "text"
+									},
+									{
+										"key": "expiry",
+										"value": "{{admin-expiry}}",
+										"description": "Authenticated admin, expiry header",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{site_url}}/admins/api_v1/movies?avaibility=true",
+									"host": [
+										"{{site_url}}"
+									],
+									"path": [
+										"admins",
+										"api_v1",
+										"movies"
+									],
+									"query": [
+										{
+											"key": "avaibility",
+											"value": "true",
+											"description": "Filter movies by its avaibility"
+										}
+									]
+								},
+								"description": "Get all movies and filter by avaibility"
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "access-token",
+										"value": "{{admin-access-token}}",
+										"description": "Authenticated admin, access token header"
+									},
+									{
+										"key": "client",
+										"value": "{{admin-client}}",
+										"description": "Authenticated admin, client header"
+									},
+									{
+										"key": "uid",
+										"value": "{{admin-uid}}",
+										"description": "Authenticated admin, uid header"
+									},
+									{
+										"key": "expiry",
+										"value": "{{admin-expiry}}",
+										"description": "Authenticated admin, expiry header"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "movie[title]",
+											"value": "Jurassic World 3",
+											"description": "Movie title, field required",
+											"type": "text"
+										},
+										{
+											"key": "movie[description]",
+											"value": "Two brothers found out that going out alone in an open field full of raging dinosaurs its dangerous",
+											"description": "Movie description",
+											"type": "text"
+										},
+										{
+											"key": "movie[stock]",
+											"value": "20",
+											"description": "Movie stock, must be greater or equal to 0, field required",
+											"type": "text"
+										},
+										{
+											"key": "movie[rent_price]",
+											"value": "4.99",
+											"description": "Movie rent price, numeric value that must be greater than 0, field required",
+											"type": "text"
+										},
+										{
+											"key": "movie[sale_price]",
+											"value": "19.99",
+											"description": "Movie sale price, numeric value that must be greater than 0, field required",
+											"type": "text"
+										},
+										{
+											"key": "movie[availability]",
+											"value": "true",
+											"description": "Movie avaibility, field required",
+											"type": "text"
+										},
+										{
+											"key": "movie[cover]",
+											"description": "Movie image",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "{{site_url}}/admins/api_v1/movies",
+									"host": [
+										"{{site_url}}"
+									],
+									"path": [
+										"admins",
+										"api_v1",
+										"movies"
+									]
+								},
+								"description": "IMPORTANT: This action require headers of a authenticated Admin, this can be obtained (And saved by postman automatically) on the Admin > Login requests"
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "access-token",
+										"value": "{{admin-access-token}}",
+										"description": "Authenticated admin, access token header"
+									},
+									{
+										"key": "client",
+										"value": "{{admin-client}}",
+										"description": "Authenticated admin, client header"
+									},
+									{
+										"key": "uid",
+										"value": "{{admin-uid}}",
+										"description": "Authenticated admin, uid header"
+									},
+									{
+										"key": "expiry",
+										"value": "{{admin-expiry}}",
+										"description": "Authenticated admin, expiry header"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "movie[title]",
+											"value": "",
+											"description": "Movie title, field required",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "movie[description]",
+											"value": "",
+											"description": "Movie description",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "movie[stock]",
+											"value": "19",
+											"description": "Movie stock, must be greater or equal to 0, field required",
+											"type": "text"
+										},
+										{
+											"key": "movie[rent_price]",
+											"value": "",
+											"description": "Movie rent price, numeric value that must be greater than 0, field required",
+											"type": "text"
+										},
+										{
+											"key": "movie[sale_price]",
+											"value": "",
+											"description": "Movie sale price, numeric value that must be greater than 0, field required",
+											"type": "text"
+										},
+										{
+											"key": "movie[image]",
+											"value": "",
+											"type": "file",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{site_url}}/admins/api_v1/movies/{{movie_id}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"path": [
+										"admins",
+										"api_v1",
+										"movies",
+										"{{movie_id}}"
+									]
+								},
+								"description": "IMPORTANT: Description of the create request applies here too and this request needs a id param, please set this manually."
+							},
+							"response": []
+						},
+						{
+							"name": "Destroy",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "access-token",
+										"value": "{{admin-access-token}}",
+										"description": "Authenticated admin, access token header"
+									},
+									{
+										"key": "client",
+										"value": "{{admin-client}}",
+										"description": "Authenticated admin, client header"
+									},
+									{
+										"key": "uid",
+										"value": "{{admin-uid}}",
+										"description": "Authenticated admin, uid header"
+									},
+									{
+										"key": "expiry",
+										"value": "{{admin-expiry}}",
+										"description": "Authenticated admin, expiry header"
+									}
+								],
+								"url": {
+									"raw": "{{site_url}}/admins/api_v1/movies/{{movie_id}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"path": [
+										"admins",
+										"api_v1",
+										"movies",
+										"{{movie_id}}"
+									]
+								},
+								"description": "IMPORTANT: Description of the create request applies here too and this request needs a id param, please set this manually."
+							},
+							"response": []
+						}
+					],
+					"description": "Manage movies",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "86efe1e7-b24d-47d0-83bc-64a5b2bcb2cb",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "3e8e1247-dc2b-46ac-bfe5-c4035e73691a",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			],
+			"description": "Admin endpoints to manage products",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c2f7181d-0c41-41ce-b1e9-c54fb8ec84f8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "451fca8a-2ede-4e93-bdf1-46f2779cb77d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Users Namespace",
+			"item": [
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0e8353cf-9d9e-4213-8c00-5d1e0dcb8c97",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "ed5afc8c-b295-4246-8bb9-5c10758546f7",
+										"exec": [
+											"postman.setEnvironmentVariable(\"user-client\", postman.getResponseHeader(\"client\"));",
+											"postman.setEnvironmentVariable(\"user-access-token\", postman.getResponseHeader(\"access-token\"));",
+											"postman.setEnvironmentVariable(\"user-uid\", postman.getResponseHeader(\"uid\"));",
+											"postman.setEnvironmentVariable(\"user-expiry\", postman.getResponseHeader(\"expiry\"));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "oscar.nunez1908@yahoo.com",
+											"description": "Insert user email",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "test616",
+											"description": "Insert user pass",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{site_url}}/users/api_v1/auth/sign_in",
+									"host": [
+										"{{site_url}}"
+									],
+									"path": [
+										"users",
+										"api_v1",
+										"auth",
+										"sign_in"
+									]
+								},
+								"description": "In a successful login, the body response returns the user object, and the header returns the token fields required to make the other calls (access-token, client, uid and expiry)"
+							},
+							"response": []
+						},
+						{
+							"name": "Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "",
+											"description": "Required user email",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "",
+											"description": "Required user password",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "",
+											"description": "Required user name",
+											"type": "text"
+										},
+										{
+											"key": "nickname",
+											"value": "",
+											"description": "User nickname",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{site_url}}/users/api_v1/auth",
+									"host": [
+										"{{site_url}}"
+									],
+									"path": [
+										"users",
+										"api_v1",
+										"auth"
+									]
+								},
+								"description": "Register a user, in the register we do not login automatically, so you have to go to the Login action later"
+							},
+							"response": []
+						}
+					],
+					"description": "Login and register for the users",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "998597d9-2f6b-406f-b1c9-de2f5a96d351",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "53ba72d0-d54c-457d-8e0b-0df9109be1cf",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Movie",
+					"item": [
+						{
+							"name": "Like",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "access-token",
+										"value": "{{user-access-token}}",
+										"description": "Logged user, access token header"
+									},
+									{
+										"key": "client",
+										"value": "{{user-client}}",
+										"description": "Logged user, client header"
+									},
+									{
+										"key": "uid",
+										"value": "{{user-uid}}",
+										"description": "Logged user, uid header"
+									},
+									{
+										"key": "expiry",
+										"value": "{{user-expiry}}",
+										"description": "Logged user, expiry header"
+									}
+								],
+								"url": {
+									"raw": "{{site_url}}/users/api_v1/movies/{{movie_id}}/like",
+									"host": [
+										"{{site_url}}"
+									],
+									"path": [
+										"users",
+										"api_v1",
+										"movies",
+										"{{movie_id}}",
+										"like"
+									]
+								},
+								"description": "IMPORTANT: This action require headers of a authenticated user, this can be obtained (And saved by postman automatically) on the User > Login requests. An authenticated user can like/dislike a product with this endpoint, you have to change the {{id}} params of the URL manually."
+							},
+							"response": []
+						},
+						{
+							"name": "Index",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}/users/api_v1/movies?q=&sort_by_likes=&page=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"path": [
+										"users",
+										"api_v1",
+										"movies"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "",
+											"description": "Search title and description on movies fields"
+										},
+										{
+											"key": "sort_by_likes",
+											"value": "",
+											"description": "Sort by likes (and title) if theres an equal number of likes"
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"description": "Current page requested, must be a integer value greater than 0"
+										}
+									]
+								},
+								"description": "List of all available products. This action is available for unauthenticated users, so we don't need to send any headers. The request use 3 params, you can read the params description to know what to send in them. I combine the product list featured with pagination, search and sort here."
+							},
+							"response": []
+						}
+					],
+					"description": "Get list of movies with pagination, sort and search movies by name or description",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ccd34ff6-7bbc-47e2-98be-c63f41415af9",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "db4ed8e7-747b-45cb-a880-e2a6f27aa285",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Order",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "access-token",
+										"value": "{{user-access-token}}",
+										"description": "Logged user, access token header"
+									},
+									{
+										"key": "client",
+										"value": "{{user-client}}",
+										"description": "Logged user, client header"
+									},
+									{
+										"key": "uid",
+										"value": "{{user-uid}}",
+										"description": "Logged user, uid header"
+									},
+									{
+										"key": "expiry",
+										"value": "{{user-expiry}}",
+										"description": "Logged user, expiry header"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "purchase[product_id]",
+											"value": "",
+											"description": "Product ID",
+											"type": "text"
+										},
+										{
+											"key": "purchase[quantity]",
+											"value": "",
+											"description": "Quantity, must be a integer, greater than 0 but lower or equal to current stock",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{site_url}}/users/api_v1/orders",
+									"host": [
+										"{{site_url}}"
+									],
+									"path": [
+										"users",
+										"api_v1",
+										"orders"
+									]
+								},
+								"description": "IMPORTANT: This action require headers of a authenticated User, this can be obtained (And saved by postman automatically) on the User > Login requests"
+							},
+							"response": []
+						}
+					],
+					"description": "Logged user rents or buy a movie",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3880c4eb-20f3-4734-9744-e02278ff2bb3",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "8e510a44-cef6-4f95-8395-f738c805d6d2",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Rent",
+					"item": [
+						{
+							"name": "Return",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "access-token",
+										"value": "{{user-access-token}}",
+										"description": "Logged user, access token header",
+										"type": "text"
+									},
+									{
+										"key": "client",
+										"value": "{{user-client}}",
+										"description": "Logged user, client header",
+										"type": "text"
+									},
+									{
+										"key": "uid",
+										"value": "{{user-uid}}",
+										"description": "Logged user, uid header",
+										"type": "text"
+									},
+									{
+										"key": "expiry",
+										"value": "{{user-expiry}}",
+										"description": "Logged user, expiry header",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{site_url}}/users/api_v1/rent/{{order_id}}/return",
+									"host": [
+										"{{site_url}}"
+									],
+									"path": [
+										"users",
+										"api_v1",
+										"rent",
+										"{{order_id}}",
+										"return"
+									]
+								},
+								"description": "Return the rented movie"
+							},
+							"response": []
+						}
+					],
+					"description": "Return movie after have placed an order",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3fe169fa-506e-48c9-a953-31c41a771613",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "ca33a441-db61-4a9f-8b2a-79f17e75b9fd",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			],
+			"description": "Actions that only a login user can make, like buy or like a product",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e23998ac-6bea-4fcf-855a-c98fcdefcd75",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "5a55fd9b-68fd-43e7-aee8-d0086bedb8dc",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}

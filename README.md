@@ -1,24 +1,33 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Project requirements:
 
-Things you may want to cover:
+* Ruby 2.5.5
+* Rails 5.2.3
+* PostgreSQL 9.4 or higher
+* RVM
+* Angular
 
-* Ruby version
+## Database
 
-* System dependencies
+Important: rename **database.yml.template** to **database.yml** and configure the PostgreSQL credentials (User and Password).
 
-* Configuration
+## Test users for API (In heroku app)
 
-* Database creation
+User account
+oscar.nunez1908@yahoo.com
+test616
 
-* Database initialization
+Admin account
+ojnc.190888@gmail.com
+admin-616
 
-* How to run the test suite
+# API Postman resources
 
-* Services (job queues, cache servers, search engines, etc.)
+In the folder `postman-resources` includes two json files which we can import them from the Postman App
 
-* Deployment instructions
+Collection requests:
+  /misc-resources/postman/Movie Rental Store.postman_collection.json
 
-* ...
+Enviroments vars to use in the collection requests:
+  /misc-resources/postman/Snacks store API.postman_environment.json

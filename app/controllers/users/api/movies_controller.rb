@@ -10,7 +10,7 @@ module Users
       # GET /users/api/movies
       def index
         # Get movies that are available
-        @movies = Movie.are_available.order(name: :asc)
+        @movies = Movie.are_available.order(title: :asc)
 
         # Search with the help of pg_search gem
         @movies = @movies.search(params[:q]) unless params[:q].blank?
@@ -24,6 +24,43 @@ module Users
           current_page: @movies.current_page.to_i
         }.to_json
         render json: @movies.to_json(json_options)
+      end
+
+      def show
+        @movie = Movie.find(params[:id])
+        render json: @movie.to_json(json_options)
+      end
+
+      # GET /users/api/movies/:id/like
+      def like
+        # A thumbs up button just like any other social media site
+        # We click on the like button and fires a petition and check if we
+        # like the item (object), or we 'unlike' it.
+        @like = MovieLike.where(movie_id: params[:id],
+                                user_id: current_users_api_user.id).first_or_initialize
+        if @like.new_record?
+          if @like.save
+            render json: { 'success' => true, 'action' => 'like' },
+                   status: :created
+          else
+            # If the movie doesn't exists, we show an error
+            render json: { 'success' => false, 'errors' => @like.errors },
+                   status: :unprocessable_entity
+          end
+        else
+          # Unlike (maybe was a mistake by the user), so we remove that like.
+          @like.destroy
+          render json: { 'success' => true, action: 'dislike' },
+                 status: :ok
+        end
+      end
+
+      # We define this method if we want to show certain attributes or method
+      # to the users
+      def json_options
+        {
+          methods: [:cover_image_url]
+        }
       end
     end
   end

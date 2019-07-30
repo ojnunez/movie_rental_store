@@ -32,7 +32,7 @@ module Admins
       # DELETE /admins/api/movies/:id
       def destroy
         # Destroy the movie once and for all and return a nice 200 OK header
-        @movie.destroy
+        # @movie.destroy
         render status: 200
       end
 
@@ -40,7 +40,7 @@ module Admins
 
       # White list for allowed params.
       def item_params
-        params.require(:movie).permit(:name, :description, :stock,
+        params.require(:movie).permit(:title, :description, :stock,
                                       :sale_price, :rent_price, :availability, :cover)
       end
 

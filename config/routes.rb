@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       # Orders controller for users namespace
       resources :orders, only: [:create]
       resources :movies, only: %i[index show]
+      post 'rent/:order_id/return', to: 'rents#return', as: 'rent_return'
     end
   end
 

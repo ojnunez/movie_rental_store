@@ -11,15 +11,16 @@ class Movie < ApplicationRecord
   validates :title, :stock, :rent_price, :sale_price, presence: true
   validates :stock,
             numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :price, numericality: { greater_than: 0 }
+  validates :sale_price, numericality: { greater_than: 0 }
+  validates :rent_price, numericality: { greater_than: 0 }
 
   scope :are_available, lambda {
-                          where('movies.availability == true
-                                    && movies.stock > 0')
+                          where('movies.availability IS TRUE
+                                    AND movies.stock > 0')
                         }
   # No Ransack for this project
-  include PgSearch
-  pg_search_scope :search, against: %i[name description],
+  include PgSearch::Model
+  pg_search_scope :search, against: %i[title description],
                            using: { tsearch: { prefix: true } }
 
   def cover_image_url

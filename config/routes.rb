@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     namespace :api_v1, defaults: { format: :json } do
       mount_devise_token_auth_for 'Admin', at: 'auth'
       # Only admins can Add/remove movies and modify their sale or rent prices
-      resources :movies, only: %i[create update destroy]
+      resources :movies, only: %i[index create update destroy]
     end
   end
 

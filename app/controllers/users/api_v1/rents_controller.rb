@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Users
-  module Api
+  module ApiV1
     class RentsController < Users::ApiV1Controller
       def return
         @rent = Rent.where(order_id: params[:order_id]).first

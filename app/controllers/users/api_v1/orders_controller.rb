@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Users
-  module Api
+  module ApiV1
     class OrdersController < Users::ApiV1Controller
       # POST /users/api/orders/buy
       def create

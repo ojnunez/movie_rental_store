@@ -1,9 +1,19 @@
 # frozen_string_literal: true
 
 module Admins
-  module Api
+  module ApiV1
     class MoviesController < Admins::ApiV1Controller
       before_action :set_item, only: %i[update destroy]
+
+      # GET /admins/api/movies
+      def index
+        # Get movies that are available
+        @movies = Movie.order(title: :asc)
+
+        # Simple search if params availability comes in the url
+        @movies = @movies.where(availability: true) if params[:availability] && params[:availability]=='true'
+        render json: @movies.to_json
+      end
 
       # POST /admins/api/movies
       def create

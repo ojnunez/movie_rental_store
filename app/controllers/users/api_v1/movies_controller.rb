@@ -1,17 +1,23 @@
 # frozen_string_literal: true
 
 module Users
-  module Api
+  module ApiV1
     class MoviesController < Users::ApiV1Controller
       # Our index action is public, authenticated and guest users can see our
       # movie list and the detail
-      skip_before_action :authenticate_users_api_user!, only: %i[index show]
+      skip_before_action :authenticate_users_api_v1_user!, only: %i[index show]
 
       # GET /users/api/movies
       def index
         # Get movies that are available
         @movies = Movie.are_available.order(title: :asc)
 
+        # If sort_by_likes is present we sort by likes and title
+        @movies = if params[:sort_by_likes].present?
+                    @movies.order(likes_counter: :desc, title: :asc)
+                  else
+                    @movies.order(title: :asc)
+                  end
         # Search with the help of pg_search gem
         @movies = @movies.search(params[:q]) unless params[:q].blank?
         # Add paginate to the query, by default its gonna be 10 results

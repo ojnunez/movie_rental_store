@@ -2,7 +2,7 @@
 
 module Users
   module Api
-    class RentsController < Users::ApiController
+    class RentsController < Users::ApiV1Controller
       def return
         @rent = Rent.where(order_id: params[:order_id]).first
         if @rent.nil?

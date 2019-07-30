@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   namespace :users do
-    namespace :api, defaults: { format: :json } do
+    namespace :api_v1, defaults: { format: :json } do
       mount_devise_token_auth_for 'User', at: 'auth'
 
       # Orders controller for users namespace
@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admins do
-    namespace :api, defaults: { format: :json } do
+    namespace :api_v1, defaults: { format: :json } do
       mount_devise_token_auth_for 'Admin', at: 'auth'
       # Only admins can Add/remove movies and modify their sale or rent prices
       resources :movies, only: %i[create update destroy]

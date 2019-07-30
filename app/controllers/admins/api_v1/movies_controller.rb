@@ -2,7 +2,7 @@
 
 module Admins
   module Api
-    class MoviesController < Admins::ApiController
+    class MoviesController < Admins::ApiV1Controller
       before_action :set_item, only: %i[update destroy]
 
       # POST /admins/api/movies

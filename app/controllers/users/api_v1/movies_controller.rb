@@ -2,7 +2,7 @@
 
 module Users
   module Api
-    class MoviesController < Users::ApiController
+    class MoviesController < Users::ApiV1Controller
       # Our index action is public, authenticated and guest users can see our
       # movie list and the detail
       skip_before_action :authenticate_users_api_user!, only: %i[index show]

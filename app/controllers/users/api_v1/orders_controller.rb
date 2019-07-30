@@ -2,7 +2,7 @@
 
 module Users
   module Api
-    class OrdersController < Users::ApiController
+    class OrdersController < Users::ApiV1Controller
       # POST /users/api/orders/buy
       def create
         @order = Order.new item_params

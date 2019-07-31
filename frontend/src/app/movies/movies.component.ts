@@ -21,7 +21,7 @@ export class MoviesComponent implements OnInit {
   movies: {};
   pageOfItems: {};
 
-  url = "http://localhost:3000/users/api_v1/";
+  url = "https://space-movie-rental-store.herokuapp.com/users/api_v1/";
   constructor(public rest:RestService, private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
   //ngOnInit() {

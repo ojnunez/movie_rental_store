@@ -61,7 +61,6 @@ class Order < ApplicationRecord
       rental = Rent.new
       rental.order_id = id
       rental.start_date = Time.zone.now
-      puts 'HERE?1'
       rental.save
     end
   end

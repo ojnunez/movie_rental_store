@@ -10,7 +10,22 @@ Project requirements:
 
 ## Database
 
-Important: rename **database.yml.template** to **database.yml** and configure the PostgreSQL credentials (User and Password).
+Important: Create 'database.yml' and configure the PostgreSQL credentials (User and Password).
+
+# Credentials
+
+To configure credentials for Amazon S3 service, type the command: `EDITOR=nano rails credentials:edit`
+Inside we modify with the credentials of an configured access key and the secrete base key,
+the estructure must be like this:
+-
+aws:
+  access_key_id: 'KEYID'
+  secret_access_key: 'SECRETKEY'
+
+secret_key_base: AVERYLONGKEY
+-
+
+Also make sure to modify the file storage.yml
 
 ## Test users for API (In heroku app)
 
@@ -38,3 +53,5 @@ To run the backend locally, type the command `rails s`, it will run on the defau
 
 The angular project it's integrated on the frontend folder, type the command `npm install` on a console inside the project
 and then `ng serve`
+
+// Only shows the list of movies

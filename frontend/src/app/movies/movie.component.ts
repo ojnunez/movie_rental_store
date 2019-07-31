@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class MovieComponent implements OnInit {
 
   movie:any;
+  url = "https://space-movie-rental-store.herokuapp.com/users/api_v1/";
 
   constructor(public rest:RestService, private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 

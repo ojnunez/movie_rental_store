@@ -6,8 +6,9 @@ module Users
       # POST /users/api/orders/buy
       def create
         @order = Order.new item_params
+        @order.order_date = Time.now
         # The user that made the request is the user that buy the product
-        @order.user = current_users_api_user
+        @order.user = current_users_api_v1_user
         if @order.save
           render json: @order.to_json,
                  status: :created

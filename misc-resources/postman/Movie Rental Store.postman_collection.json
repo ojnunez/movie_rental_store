@@ -780,15 +780,21 @@
 									"mode": "formdata",
 									"formdata": [
 										{
-											"key": "purchase[product_id]",
-											"value": "",
-											"description": "Product ID",
+											"key": "order[movie_id]",
+											"value": "2",
+											"description": "Movie id",
 											"type": "text"
 										},
 										{
-											"key": "purchase[quantity]",
-											"value": "",
+											"key": "order[quantity]",
+											"value": "1",
 											"description": "Quantity, must be a integer, greater than 0 but lower or equal to current stock",
+											"type": "text"
+										},
+										{
+											"key": "order[sale_kind]",
+											"value": "rental",
+											"description": "Sale kind, must be  rental or purchase",
 											"type": "text"
 										}
 									]

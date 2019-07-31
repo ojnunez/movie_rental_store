@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 
-const endpoint = 'http://localhost:3000/users/api_v1/';
+const endpoint = 'https://space-movie-rental-store.herokuapp.com/users/api_v1/';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
@@ -21,6 +21,11 @@ export class RestService {
   private extractData(res: Response) {
     let body = res;
     return body || { };
+  }
+
+  getMovies(): Observable<any> {
+    return this.http.get(endpoint + 'movies').pipe(
+      map(this.extractData));
   }
 
   getMovie(id): Observable<any> {

@@ -12,6 +12,7 @@ import { JwPaginationComponent } from 'jw-angular-pagination';
 import { AngularTokenModule } from 'angular-token';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MoviesComponent } from './movies/movies.component';
+import { MovieComponent } from './movies/movie.component';
 
 const appRoutes: Routes = [
   {
@@ -20,17 +21,37 @@ const appRoutes: Routes = [
     data: { title: 'Movie List' }
   },
 
+  {
+    path: 'movies/:id',
+    component: MovieComponent,
+    data: { title: 'Movie Details' }
+  },
+
+  //{
+  //  path: 'sign_up',
+  //  component: UserRegisterComponent,
+  //  data: { title: 'Sign up' }
+  //},
+
+  //{
+  //  path: 'sign_in',
+  //  component: UserRegisterComponent,
+  //  data: { title: 'Sign in' }
+  //},
+
   { path: '',
     redirectTo: '/movies',
     pathMatch: 'full'
   }
+
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     JwPaginationComponent,
-    MoviesComponent
+    MoviesComponent,
+    MovieComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

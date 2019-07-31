@@ -90,13 +90,13 @@
 									"formdata": [
 										{
 											"key": "email",
-											"value": "",
+											"value": "ojnc.190888@gmail.com",
 											"description": "Insert admin email",
 											"type": "text"
 										},
 										{
 											"key": "password",
-											"value": "",
+											"value": "admin-616",
 											"description": "Insert admin password",
 											"type": "text"
 										}
@@ -178,7 +178,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{site_url}}/admins/api_v1/movies?avaibility=true",
+									"raw": "{{site_url}}/admins/api_v1/movies?availability=",
 									"host": [
 										"{{site_url}}"
 									],
@@ -189,9 +189,9 @@
 									],
 									"query": [
 										{
-											"key": "avaibility",
-											"value": "true",
-											"description": "Filter movies by its avaibility"
+											"key": "availability",
+											"value": "",
+											"description": "Filter movies by its availability, must be true"
 										}
 									]
 								},
@@ -230,13 +230,13 @@
 									"formdata": [
 										{
 											"key": "movie[title]",
-											"value": "Jurassic World 3",
+											"value": "Captain America and The Winter Soldier",
 											"description": "Movie title, field required",
 											"type": "text"
 										},
 										{
 											"key": "movie[description]",
-											"value": "Two brothers found out that going out alone in an open field full of raging dinosaurs its dangerous",
+											"value": "Captain america finally begins to understand the references.",
 											"description": "Movie description",
 											"type": "text"
 										},
@@ -268,7 +268,7 @@
 											"key": "movie[cover]",
 											"description": "Movie image",
 											"type": "file",
-											"src": []
+											"src": "/Users/oscarnunez/Downloads/movie-poster-captain-america-2.jpg"
 										}
 									]
 								},
@@ -351,7 +351,15 @@
 										{
 											"key": "movie[image]",
 											"value": "",
+											"description": "Movie image",
 											"type": "file",
+											"disabled": true
+										},
+										{
+											"key": "movie[availability]",
+											"value": "false",
+											"description": "Movie avaibility",
+											"type": "text",
 											"disabled": true
 										}
 									]
@@ -544,25 +552,25 @@
 									"formdata": [
 										{
 											"key": "email",
-											"value": "",
+											"value": "admin@test.com",
 											"description": "Required user email",
 											"type": "text"
 										},
 										{
 											"key": "password",
-											"value": "",
+											"value": "123456",
 											"description": "Required user password",
 											"type": "text"
 										},
 										{
 											"key": "name",
-											"value": "",
-											"description": "Required user name",
+											"value": "TEST",
+											"description": "User name",
 											"type": "text"
 										},
 										{
 											"key": "nickname",
-											"value": "",
+											"value": "TESTER",
 											"description": "User nickname",
 											"type": "text"
 										}
@@ -615,7 +623,7 @@
 						{
 							"name": "Like",
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [
 									{
 										"key": "access-token",
@@ -689,6 +697,27 @@
 									]
 								},
 								"description": "List of all available products. This action is available for unauthenticated users, so we don't need to send any headers. The request use 3 params, you can read the params description to know what to send in them. I combine the product list featured with pagination, search and sort here."
+							},
+							"response": []
+						},
+						{
+							"name": "Show",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}/users/api_v1/movies/{{movie_id}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"path": [
+										"users",
+										"api_v1",
+										"movies",
+										"{{movie_id}}"
+									]
+								},
+								"description": "Movie detail"
 							},
 							"response": []
 						}

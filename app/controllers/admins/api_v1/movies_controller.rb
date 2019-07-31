@@ -11,9 +11,9 @@ module Admins
         @movies = Movie.order(title: :asc)
 
         # Simple search if params availability comes in the url
-        if params[:availability] && params[:availability]=='true'
+        if params[:availability] && params[:availability] == 'true'
           @movies = @movies.where(availability: true)
-        elsif params[:availability] && params[:availability]=='false'
+        elsif params[:availability] && params[:availability] == 'false'
           @movies = @movies.where(availability: false)
         end
         render json: @movies.to_json

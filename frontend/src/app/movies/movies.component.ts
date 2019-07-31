@@ -6,10 +6,15 @@ import { map, catchError, tap } from 'rxjs/operators';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { MovieComponent } from '../movies/movie.component';
+
+
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
-  styleUrls: ['./movies.component.sass']
+  styleUrls: ['./movies.component.sass'],
+  providers: [MovieComponent]
+
 })
 export class MoviesComponent implements OnInit {
 
@@ -23,11 +28,13 @@ export class MoviesComponent implements OnInit {
   //  this.getMovies();
   //}
 
+  // TO DO, form search for other params and sort
   ngOnInit() {
     // load page based on 'page' query param or default to 1
     this.route.queryParams.subscribe(x => this.getMovies(x.page || 1, null, null));
   }
 
+  // Put it on common file
   private extractData(res: Response) {
     let body = res;
     return body || { };
@@ -46,6 +53,8 @@ export class MoviesComponent implements OnInit {
     // update current page of items
     this.pageOfItems = pageOfItems;
   }
+
+
 
   //getMovies() {
   //  this.movies = [];

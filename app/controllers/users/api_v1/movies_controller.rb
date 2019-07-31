@@ -34,7 +34,12 @@ module Users
 
       def show
         @movie = Movie.find(params[:id])
-        render json: @movie.to_json(json_options)
+
+        if @movie && @movie.availability == true
+          render json: @movie.to_json(json_options)
+        else
+          render json: { status: :unprocessable_entity } 
+        end
       end
 
       # GET /users/api/movies/:id/like
@@ -43,7 +48,7 @@ module Users
         # We click on the like button and fires a petition and check if we
         # like the item (object), or we 'unlike' it.
         @like = MovieLike.where(movie_id: params[:id],
-                                user_id: current_users_api_user.id).first_or_initialize
+                                user_id: current_users_api_v1_user.id).first_or_initialize
         if @like.new_record?
           if @like.save
             render json: { 'success' => true, 'action' => 'like' },

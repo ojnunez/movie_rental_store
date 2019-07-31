@@ -22,6 +22,8 @@ class Rent < ApplicationRecord
                          '3.99'.to_f
                        end
       update_columns(penalty: true, penalty_amount: penalty_amount)
+    else
+      update_columns(penalty: false, penalty_amount: 0)
     end
   end
 

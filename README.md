@@ -24,10 +24,17 @@ admin-616
 
 # API Postman resources
 
-In the folder `postman-resources` includes two json files which we can import them from the Postman App
+In the folder `misc-resources/postman` includes two json files which we can import them from the Postman App
 
 Collection requests:
   /misc-resources/postman/Movie Rental Store.postman_collection.json
 
 Enviroments vars to use in the collection requests:
   /misc-resources/postman/Snacks store API.postman_environment.json
+
+## Frontend integration with Angular
+
+To run the backend locally, type the command `rails s`, it will run on the default `localhost:3000`
+
+The angular project it's integrated on the frontend folder, type the command `npm install` on a console inside the project
+and then `ng serve`

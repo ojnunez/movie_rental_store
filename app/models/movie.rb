@@ -26,6 +26,6 @@ class Movie < ApplicationRecord
   def cover_image_url
     # Validate if there is a cover image attached to a movie, return a
     # blank string if there's not
-    cover.attached? ? Rails.application.routes.url_helpers.rails_blob_url(image) : ''
+    cover.attached? ? Rails.application.routes.url_helpers.rails_blob_url(cover) : ''
   end
 end

@@ -46,7 +46,7 @@ module Admins
       # DELETE /admins/api/movies/:id
       def destroy
         # Destroy the movie once and for all and return a nice 200 OK header
-        # @movie.destroy
+        @movie.destroy
         render status: 200
       end
 
